@@ -1,0 +1,81 @@
+<% if user_signed_in? %>
+  <div class="page-header">
+    <h1><font face="Harrington">All Statuses</font> <%= link_to "New status", new_status_path, class: "btn btn-success pull-right" %></h1>
+
+  </div>
+
+  <% @statuses.each do |status| %>
+    <% if current_user.friends.include?(status.user) || status.user.profile_name == current_user.profile_name %>
+        <div class="status media">
+          <%= avatar_profile_link status.user, {}, class: 'pull-left' %>
+          <div class="media-body">
+            <h4 class="media-heading"><%= status.user.full_name %></h4>
+              <p><%= status.content %></p>
+              <%= status_document_link(status) %>
+              <div class="meta">
+                <%= link_to time_ago_in_words(status.created_at) + " ago", status %>
+                <% if signed_in? && current_user == status.user %>
+                <span class="admin">
+                | <%= link_to "Edit", edit_status_path(status) %> | 
+                <%= link_to "Delete", status, method: :delete, data: { confirm: "Are you sure you want to delete this status?" } %>
+                </span>
+                <% end %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+  <% end %>
+
+  <br>
+  <h1><%= link_to "New status", new_status_path, class: "btn btn-success pull-right" %></h1>
+
+<% else %>
+
+  <div class="page-header" style= "border-bottom : 1pt solid black">
+    <br>
+    <span style="text-shadow: 3px 3px 3px #666666;">
+    <font color="#000000" face="Kristen ITC" size="7"><center><b>G</font>
+    <font color="#FFFFFF" face="Kristen ITC" size="7">o</font>
+    <font color="#000000" face="Kristen ITC" size="7">S</font>
+    <font color="#FFFFFF" face="Kristen ITC" size="7">u</font>
+    <font color="#000000" face="Kristen ITC" size="7">p</b></center></font></span>
+    <br>
+    <font size="5" color="white" face="Monotype Corsiva"><center><b><em>Stay <font color="black">Connected,</font> Stay <font color="black">Happy...</font></b></em></center></font>
+  </div>
+
+  <em><b><font color="#000000" size="3" face="Lucida Sans">
+    <center>A new social network to get connected to your<br>family, friends and loved ones...</center>
+    <center>Share your thoughts, images and videos with<br>people round the globe...</center>
+  </font></b></em>
+  <br><br>
+  
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span8">
+        <font color="#000000" face="times new roman"><h1>Have an Account?</h1></font>
+        <font color="#000000" face="times new roman"><h2>Sign Up for Free...</h2></font>
+        <font color="#000000" face="times new roman"><h3>Its too much Fun...</h3></font>
+        <br><br><br>
+      </div>
+
+      <div class="span4">
+        <div class="well">
+          <b>
+          <legend><font color="black"><center>For Advertisements, Reviews and Bug Reports:</center></font></legend>
+          <center><em>Contact: gosup.help@gmail.com</em></center>
+        </b>
+        </div>
+      </div>
+
+<div class="span12">
+  <font color="black" face="century" size="3">
+    <center>Designed and Developed by: <b>Mayank Ladha</b><br>(Contact: <b>gosup.help@gmail.com</b>)<br>
+    &copy 2014 GoSup
+  </center>
+  </font>
+</div>
+
+    </div>
+  </div>
+
+<% end %>

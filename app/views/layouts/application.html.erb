@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gosup</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+
+<body class="b">
+ <div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+        
+    <a href="/statuses" class="brand">
+          <span style="text-shadow: 3px 3px 3px #666666;">
+          <font color="#FFFFFF" face="Kristen ITC" size="6"><center><b>G</font>
+          <font color="#FFFFFF" face="Kristen ITC" size="6">o</font>
+          <font color="#FFFFFF" face="Kristen ITC" size="6">S</font>
+          <font color="#FFFFFF" face="Kristen ITC" size="6">u</font>
+          <font color="#FFFFFF" face="Kristen ITC" size="6">p</b></center></font></span>
+        </a>  
+    <i><b>
+    <ul class="nav">
+      <% if user_signed_in? %>
+        <li><%= link_to "All Statuses", feed_path %></li>
+        <li id="activity-feed"><%= link_to "Activity Feed", activities_path %></li>
+      <% end %>
+    </ul>
+    <ul class="nav pull-right">
+      <% if user_signed_in? %>
+        <li><%= link_to "Albums", albums_path(current_user) %></li>
+        <li><%= link_to "Friends", user_friendships_path %></li>
+        <li><%= link_to current_user.full_name, 
+        edit_user_registration_path %></li>
+        <li><%= link_to "Log Out", logout_path %></li>
+      <% else %>
+        <li><%= link_to "Sign Up", register_path %></li>
+        <li><%= link_to "Sign In", login_path %></li>
+      <% end %>
+    </ul></b></i>
+  </div>
+</div>
+</div>
+
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <%= render_breadcrumbs %>
+      
+      <% flash.each do |type, message| %>
+        <div class="alert <%=  flash_class type %>">
+          <button class="close" data-dismiss="alert">x</button>
+          <%= message %>
+        </div>
+      <% end %>
+
+      <% if !user_signed_in? %>
+        <%= yield %>
+      <% end %>
+
+      <% if user_signed_in? %>
+        <div class="span2">
+          <font face="comic sans ms" size="3">
+            <%= avatar_profile_link current_user %><br><br>
+            <b><%= current_user.full_name %></b><br>
+            <b>Nick: </b><%= current_user.profile_name %></b><br>
+            <b>Friends: </b><%= current_user.friends.count %><br>
+            <b>Joined Gosup: </b><br><%= time_ago_in_words(current_user.created_at) %> ago
+          </font>
+        </div>
+
+        <div class="span7">
+          <%= yield %>
+        </div>
+
+        <div class="span2">
+          <br>
+          <div class="well">
+            <font color="black" size="3"><center><b>Space for Advertisements.</b></center></font>
+          </div>
+        </div>
+      <% end %>
+    </div>
+</div>
+</body>
+
+
+
+
+
+<script id="activities-template" type="text/x-handlebars-template">
+  <a class="dropdown-toggle" href="#">Activity Feed ({{count}})</a>
+  <ul class="dropdown-menu">
+  {{#each activities}}
+    {{activityLink}}
+  {{/each}}
+  <li class="divider"></li>
+  <li><a href="{{activityFeedLink}}">Activity Feed</a></li>
+  </ul>
+</script>
+
+</html>

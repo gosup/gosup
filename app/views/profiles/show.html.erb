@@ -1,0 +1,46 @@
+<%= page_header do %>
+  <h1>
+    <%= avatar_profile_link @user, {}, class: '' %>
+    <%= @user.full_name %>
+    <%= link_to "Albums", albums_path(@user), class: 'btn  btn-success pull-right' %>
+  </h1>
+
+<% if signed_in? %>
+<span id="friend-status">
+  <% if current_user.friends.include?(@user) || current_user.pending_friends.include?(@user) %>
+    <b><%= link_to "See Friendship", edit_user_friendship_path(friend_id: @user), class: 'btn btn-primary pull-right' %></b>
+  <% else %>
+    <% if current_user != @user %>
+      <b><%= link_to "Add Friend", new_user_friendship_path(friend_id: @user), class: 'btn btn-success pull-right', id: 'add-friendship', data: {friend_id: @user.to_param} %></b>
+      <% end %>
+  
+  <% end %>
+</span>
+<% end %>
+
+  <font face="comic sans ms" size="3">
+    <b>Nick: </b><%= @user.profile_name %></b><br>
+    <b>From: </b><%= @user.from %><br>
+    <b>Lives In: </b><%= @user.lives_in %><br>
+    <b>Marital Status: </b><%= @user.marital_status %><br>
+    <b>Friends: </b><%= @user.friends.count %><br>
+    <b>Joined Gosup: </b><%= time_ago_in_words(@user.created_at) %> ago<br>
+    <b>Occupation: </b><%= @user.occupation %><br>
+    <b>College: </b><%= @user.college %><br>
+    <b>School: </b><%= @user.school %><br>
+    <b>One Line Self Description: </b><%= @user.about_yourself %><br>
+  </font>
+
+
+<% end %>
+
+<% if @statuses %>
+  <h3><%= @user.first_name %>'s status updates:</h3>
+    <% @statuses.each do |status| %>
+    <div class="well">
+      <%= status.content %>
+      <hr />
+      <%= link_to time_ago_in_words(status.created_at), status_path(status) %> ago
+    </div>
+  <% end %>
+<% end %>

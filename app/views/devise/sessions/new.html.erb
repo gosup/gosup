@@ -1,0 +1,39 @@
+<br>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span8">
+      <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), html: {class: "form-horizontal"}) do |f| %>
+
+        <fieldset>
+          <legend><strong><b><center><font color="#000000" face="French Script MT" size="7">Sign In</font></center></b></strong></legend>
+          <%= f.input :email, input_html: { class: 'input-xlarge' }, placeholder: 'Email' %>
+          <%= f.input :password, input_html: { class: 'input-xlarge' }, placeholder: 'Password' %>
+
+
+          <% if devise_mapping.rememberable? -%>
+            <div><%= f.input :remember_me, as: :boolean %></div>
+          <% end -%>
+
+          <div><center><%= f.button :submit, "Sign in", class: 'btn btn-success btn-large' %></center></div>
+        </fieldset>
+      <% end %>
+
+    <center>
+      <br><br><br>
+      <h4>Don't have an Account?</h4>
+      <h4>Create one...</h4>
+      <%= render "devise/shared/links" %>
+    </center>
+</div>
+    
+      <div class="span4">
+        <font color="#000000" face="French Script MT">
+        <br>
+         <h1>Signing in is:</h1>
+         <h1>- Easy</h1>
+         <h1>- Secure</h1>
+       </font>
+      </div>
+  
+</div>
+</div>

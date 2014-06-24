@@ -1,0 +1,24 @@
+ben:
+  first_name: "Ben"
+  last_name: "Lewis"
+  email: "bennlewis@gmail.com"
+  profile_name: "benlewis"
+  encrypted_password: "$2a$10$Fh/Hm8RxDsuPTeBUr6864.GARlcmt7zF2WspaXGr3BIv2C27N.osq"
+
+john:
+  first_name: "John"
+  last_name: "Doe"
+  email: "johndoe@google.com"
+  profile_name: "johndoe"
+
+fred:
+  first_name: "Fred"
+  last_name: "Flintstone"
+  email: "fflintstone@example.com"
+  profile_name: "fredflintstone"
+
+blocked_friend:
+  first_name: "Blocked"
+  last_name: "Friend"
+  email: "blocked@teamtreehouse.com"
+  profile_name: "youblockedme"
